@@ -1,0 +1,36 @@
+# Diretório de configuração do CLion (JetBrains)
+.idea/
+
+# Diretórios de build e cmake
+cmake-build-*/
+
+# Arquivos de cache e temporários do CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+
+# Arquivos binários e de saída
+*.out
+*.o
+*.a
+*.so
+*.dll
+*.dSYM/
+*.obj
+*.lib
+*.pdb
+
+# Arquivos de log e debug
+*.log
+*.tmp
+
+# Diretório oculto do sistema em alguns SOs
+.DS_Store
+Thumbs.db
+
+#arquivo de output
+Output/output.txt
