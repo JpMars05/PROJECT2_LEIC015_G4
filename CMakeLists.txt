@@ -10,4 +10,5 @@ set( CMAKE_BUILD_TYPE "Release" )
 add_executable(PROJECT2_LEIC015_G4
         src/main.cpp
         src/DatasetReader.cpp
+        src/Solver.cpp
 )
