@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include <algorithm>
 #include "../include/pallet.h"
 
 using namespace std;
@@ -48,4 +49,32 @@ void backtrackingKnapsack(const vector<pallet>& pallets, int maxWeight) {
     for (int id : bestCombination) cout << id << " ";
     cout << "\nPeso total: " << bestWeight << endl;
     cout << "Lucro total: " << bestProfit << endl;
+}
+
+void greedyKnapsack(const vector<pallet>& pallets, int maxWeight) {
+  vector<pallet> sortedPallets = pallets;
+
+  // Ordena pela divisão entre lucro e peso de cada um, por ordem decrescente
+  sort(sortedPallets.begin(), sortedPallets.end(), [](const pallet& a, const pallet& b) {
+        double ratioA = static_cast<double>(a.profit) / a.weight;
+        double ratioB = static_cast<double>(b.profit) / b.weight;
+        return ratioA > ratioB;
+    });
+  int currentWeight = 0;
+  int totalProfit = 0;
+  vector<int> currentCombination;
+
+  // Adiciona-se paletes ao vetor enquanto não ultrapassa a capacidade total
+  for(const auto& p : sortedPallets) {
+    if(currentWeight + p.weight <= maxWeight) {
+      currentWeight+=p.weight;
+      totalProfit += p.profit;
+      currentCombination.push_back(p.id);
+    }
+  }
+  cout << "Melhor combinação (Greedy):" << endl;
+  cout << "Paletes: ";
+  for(int id : currentCombination) cout << id << " ";
+  cout << "\nPeso total: " << currentWeight << endl;
+  cout << "Lucro total: " << totalProfit << endl;
 }
