@@ -10,5 +10,6 @@ extern std::vector<int> bestCombination;
 
 void backtrack(const std::vector<pallet>& pallets, int index, int currentWeight, int currentProfit, int maxWeight, std::vector<int>& currentCombination);
 void backtrackingKnapsack(const std::vector<pallet>& pallets, int maxWeight);
+void dynamicProgrammingKnapsack(const std::vector<pallet>& pallets, int maxWeight);
 
 #endif //SOLVER_H
