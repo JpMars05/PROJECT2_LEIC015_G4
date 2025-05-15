@@ -43,7 +43,7 @@ void backtrackingKnapsack(const vector<pallet>& pallets, int maxWeight) {
     vector<int> currentCombination;
     backtrack(pallets, 0, 0, 0, maxWeight, currentCombination);
 
-    cout << "Melhor combinação (Backtracking):" << endl;
+    cout << "Melhor combinacao (Backtracking):" << endl;
     cout << "Paletes: ";
     for (int id : bestCombination) cout << id << " ";
     cout << "\nPeso total: " << bestWeight << endl;

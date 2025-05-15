@@ -4,7 +4,7 @@
 
 int main() {
     std::cout << "=== Pallet Packing Optimization ===\n";
-    std::cout << "1. Escolher Dataset 01\n";
+    std::cout << "1. Escolher Dataset\n";
     std::cout << "2. Sair\n";
 
     int option;
@@ -12,7 +12,7 @@ int main() {
 
     if (option == 1) {
         // Lê o dataset
-        dataset data = readDataset("../datasets/TruckAndPallets_01.csv", "../datasets/Pallets_01.csv");
+        dataset data = selectDataset();
         
         std::cout << "Capacidade do camiao: " << data.capacity << "\n";
         std::cout << "Numero de paletes: " << data.numPallets << "\n";
