@@ -21,6 +21,7 @@ int main() {
             std::cout << "\nEscolhe o algoritmo:\n";
             std::cout << "1. Backtracking\n";
             std::cout << "2. Programacao Dinamica\n";
+            std::cout << "3. Greedy Solution\n";
             int algOption;
             std::cin >> algOption;
 
@@ -29,6 +30,9 @@ int main() {
             }
             else if (algOption == 2) {
                 dynamicProgrammingKnapsack(data.pallets, data.capacity);
+            }
+            else if (algOption == 3) {
+                greedyKnapsack(data.pallets, data.capacity);
             }
             else {
                 std::cout << "Opcao invalida de algoritmo.\n";
