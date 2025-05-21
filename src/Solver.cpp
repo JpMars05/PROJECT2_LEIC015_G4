@@ -196,9 +196,9 @@ void LIP_Knapsack(const vector<pallet>& items, int capacity) {
         }
     }
 
-    cout << "Melhor combinacao (LIP - Branch and Bound):\n";
+    cout << "Melhor combinacao (LIP - Branch and Bound):";
     cout << "Paletes: ";
     for (int id : bestTaken) cout << id << " ";
     cout << "\nPeso total: " << totalWeight << endl;
-    cout << "\nLucro total: " << maxProfit << endl;
+    cout << "Lucro total: " << maxProfit << endl;
 }
