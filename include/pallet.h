@@ -8,5 +8,11 @@ struct pallet {
     int weight;
     int profit;
 };
-
+struct BBNode {
+    int level;
+    int profit;
+    int weight;
+    double bound;
+    std::vector<int> taken;
+};
 #endif //PALLET_H
