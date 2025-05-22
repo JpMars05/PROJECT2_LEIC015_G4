@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <stack>
 #include "../include/pallet.h"
 
 using namespace std;
@@ -126,4 +127,78 @@ void greedyKnapsack(const vector<pallet>& pallets, int maxWeight) {
     for(int id : currentCombination) cout << id << " ";
     cout << "\nPeso total: " << currentWeight << endl;
     cout << "Lucro total: " << totalProfit << endl;
+}
+bool cmpRatio(const pallet& a, const pallet& b) {
+    return (double)a.profit / a.weight > (double)b.profit / b.weight;
+}
+double bound(int level, int weight, int profit, const vector<pallet>& pallets, int capacity) {
+    if (weight >= capacity) return 0;
+
+    double profit_bound = profit;
+    int total_weight = weight;
+
+    for (int i = level; i < pallets.size(); ++i) {
+        if (total_weight + pallets[i].weight <= capacity) {
+            total_weight += pallets[i].weight;
+            profit_bound += pallets[i].profit;
+        } else {
+            int remain = capacity - total_weight;
+            profit_bound += (double)pallets[i].profit / pallets[i].weight * remain;
+            break;
+        }
+    }
+    return profit_bound;
+}
+void LIP_Knapsack(const vector<pallet>& items, int capacity) {
+    vector<pallet> pallets = items;
+    sort(pallets.begin(), pallets.end(), cmpRatio);
+
+    stack<BBNode> S;
+    BBNode root = {0, 0, 0, bound(0, 0, 0, pallets, capacity), {}};
+    S.push(root);
+
+    int maxProfit = 0;
+    vector<int> bestTaken;
+
+    while (!S.empty()) {
+        BBNode node = S.top(); S.pop();
+
+        if (node.level >= pallets.size()) continue;
+
+        BBNode with = node;
+        with.level++;
+        with.weight += pallets[node.level].weight;
+        with.profit += pallets[node.level].profit;
+        with.taken.push_back(pallets[node.level].id);
+        with.bound = bound(with.level, with.weight, with.profit, pallets, capacity);
+
+        if (with.weight <= capacity && with.profit > maxProfit) {
+            maxProfit = with.profit;
+            bestTaken = with.taken;
+        }
+
+        if (with.bound > maxProfit)
+            S.push(with);
+
+        BBNode without = node;
+        without.level++;
+        without.bound = bound(without.level, without.weight, without.profit, pallets, capacity);
+        if (without.bound > maxProfit)
+            S.push(without);
+    }
+    int totalWeight = 0;
+    for (int id : bestTaken) {
+        for (const auto& p : items) {
+            if (p.id == id) {
+                totalWeight += p.weight;
+                break;
+            }
+        }
+    }
+
+    cout << "Melhor combinacao (LIP - Branch and Bound):";
+    cout << "Paletes: ";
+    for (int id : bestTaken) cout << id << " ";
+    cout << "\nPeso total: " << totalWeight << endl;
+    cout << "Lucro total: " << maxProfit << endl;
 }
