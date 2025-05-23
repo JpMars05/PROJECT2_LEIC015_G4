@@ -1,0 +1,193 @@
+\doxysection{src/\+Solver.cpp File Reference}
+\hypertarget{_solver_8cpp}{}\label{_solver_8cpp}\index{src/Solver.cpp@{src/Solver.cpp}}
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$stack$>$}\newline
+{\ttfamily \#include "{}../include/pallet.\+h"{}}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_solver_8cpp_ab147f7851e0dca23cf49a3d8d680f0b7}{backtrack}} (const vector$<$ \mbox{\hyperlink{structpallet}{pallet}} $>$ \&pallets, int index, int current\+Weight, int current\+Profit, int max\+Weight, vector$<$ int $>$ \&current\+Combination)
+\begin{DoxyCompactList}\small\item\em Function that works as a recursive helper for the backtracking solution of the 0/1 Knapsack Problem. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_solver_8cpp_adc832f5cea7a539d6789d92b1806dffc}{backtracking\+Knapsack}} (const vector$<$ \mbox{\hyperlink{structpallet}{pallet}} $>$ \&pallets, int max\+Weight)
+\begin{DoxyCompactList}\small\item\em Function that solves the 0/1 Knapsack Problem using the backtracking approach. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_solver_8cpp_adbb6c9e8c8cec594fb9ef47755cc5ba4}{dynamic\+Programming\+Knapsack}} (const vector$<$ \mbox{\hyperlink{structpallet}{pallet}} $>$ \&pallets, int max\+Weight)
+\begin{DoxyCompactList}\small\item\em Function that solves the 0/1 Knapsack Problem using a Dynamic Programming approach. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_solver_8cpp_aa78077cc5709b61fdccc465cc5e9cdd1}{greedy\+Knapsack}} (const vector$<$ \mbox{\hyperlink{structpallet}{pallet}} $>$ \&pallets, int max\+Weight)
+\begin{DoxyCompactList}\small\item\em Function that solves the 0/1 Knapsack Problem using a Greedy approach. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_solver_8cpp_a3f21db84bbe4385563764f9e9856db4c}{greedy\+Plus\+Local\+Search\+Knapsack}} (const vector$<$ \mbox{\hyperlink{structpallet}{pallet}} $>$ \&pallets, int max\+Weight)
+\begin{DoxyCompactList}\small\item\em Function that solves the 0/1 Knapsack Problem using a Greedy aproach followed by a Local Search improvement. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_solver_8cpp_a1b618dab817a0d74deb28af701c98659}{hybrid\+Knapsack}} (const std\+::vector$<$ \mbox{\hyperlink{structpallet}{pallet}} $>$ \&pallets, int max\+Weight)
+\begin{DoxyCompactList}\small\item\em Function that contains a Hybrid Aprroach for the 0/1 Knapsack Problem that chooses the best strategy to solve the problem. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_solver_8cpp_aff27bcef7f0760f50c2ff45d794d9f42}{best\+Profit}} = 0
+\begin{DoxyCompactList}\small\item\em Integer that stores the best total profit for each algorithm. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{_solver_8cpp_acd4995da989efa903eb9dff43463a6bb}{best\+Weight}} = 0
+\begin{DoxyCompactList}\small\item\em Integer that stores the best total weight for each algorithm. \end{DoxyCompactList}\item 
+vector$<$ int $>$ \mbox{\hyperlink{_solver_8cpp_abc3084494cdeed984983467790e19af6}{best\+Combination}}
+\begin{DoxyCompactList}\small\item\em A vector of integers that stores the IDs of the best combination of pallets found for each algorithm. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_solver_8cpp_ab147f7851e0dca23cf49a3d8d680f0b7}\index{Solver.cpp@{Solver.cpp}!backtrack@{backtrack}}
+\index{backtrack@{backtrack}!Solver.cpp@{Solver.cpp}}
+\doxysubsubsection{\texorpdfstring{backtrack()}{backtrack()}}
+{\footnotesize\ttfamily \label{_solver_8cpp_ab147f7851e0dca23cf49a3d8d680f0b7} 
+void backtrack (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{structpallet}{pallet}} $>$ \&}]{pallets}{, }\item[{int}]{index}{, }\item[{int}]{current\+Weight}{, }\item[{int}]{current\+Profit}{, }\item[{int}]{max\+Weight}{, }\item[{vector$<$ int $>$ \&}]{current\+Combination}{}\end{DoxyParamCaption})}
+
+
+
+Function that works as a recursive helper for the backtracking solution of the 0/1 Knapsack Problem. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pallets} & A vector of pallet\textquotesingle{}s structure that contains the pallets of a certain file. \\
+\hline
+{\em index} & Integer that represents a certain index in the pallets vector. \\
+\hline
+{\em current\+Weight} & Integer that accumulates the total weight throughout the vector of pallets. \\
+\hline
+{\em current\+Profit} & Integer that accumulates the total profit throughout the vector of pallets. \\
+\hline
+{\em max\+Weight} & Integer that represents the maximum weight allowed. \\
+\hline
+{\em current\+Combination} & A vector of integers that represents the combination of pallets IDs that were selected.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time Complexity\+: O(2\texorpdfstring{$^\wedge$}{\string^}n), where n is the number of pallets. 
+\end{DoxyNote}
+\Hypertarget{_solver_8cpp_adc832f5cea7a539d6789d92b1806dffc}\index{Solver.cpp@{Solver.cpp}!backtrackingKnapsack@{backtrackingKnapsack}}
+\index{backtrackingKnapsack@{backtrackingKnapsack}!Solver.cpp@{Solver.cpp}}
+\doxysubsubsection{\texorpdfstring{backtrackingKnapsack()}{backtrackingKnapsack()}}
+{\footnotesize\ttfamily \label{_solver_8cpp_adc832f5cea7a539d6789d92b1806dffc} 
+void backtracking\+Knapsack (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{structpallet}{pallet}} $>$ \&}]{pallets}{, }\item[{int}]{max\+Weight}{}\end{DoxyParamCaption})}
+
+
+
+Function that solves the 0/1 Knapsack Problem using the backtracking approach. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pallets} & A vector of pallet\textquotesingle{}s structure containing the pallets of a certain file. \\
+\hline
+{\em max\+Weight} & Integer that represents the maximum weight allowed on a certain truck. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time Complexity\+: O(2\texorpdfstring{$^\wedge$}{\string^}n), where n is the total number of pallets. 
+\end{DoxyNote}
+\Hypertarget{_solver_8cpp_adbb6c9e8c8cec594fb9ef47755cc5ba4}\index{Solver.cpp@{Solver.cpp}!dynamicProgrammingKnapsack@{dynamicProgrammingKnapsack}}
+\index{dynamicProgrammingKnapsack@{dynamicProgrammingKnapsack}!Solver.cpp@{Solver.cpp}}
+\doxysubsubsection{\texorpdfstring{dynamicProgrammingKnapsack()}{dynamicProgrammingKnapsack()}}
+{\footnotesize\ttfamily \label{_solver_8cpp_adbb6c9e8c8cec594fb9ef47755cc5ba4} 
+void dynamic\+Programming\+Knapsack (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{structpallet}{pallet}} $>$ \&}]{pallets}{, }\item[{int}]{max\+Weight}{}\end{DoxyParamCaption})}
+
+
+
+Function that solves the 0/1 Knapsack Problem using a Dynamic Programming approach. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pallets} & A vector of pallet\textquotesingle{}s structure that conatins the pallets available for the algorithm.-\/ \\
+\hline
+{\em max\+Weight} & Integer that represents the maximum weight allowed on a certain truck. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time Complexity\+: O(n\texorpdfstring{$\ast$}{*}\+W), where n is the number of pallets available and W is the maximum allowed weight. 
+\end{DoxyNote}
+\Hypertarget{_solver_8cpp_aa78077cc5709b61fdccc465cc5e9cdd1}\index{Solver.cpp@{Solver.cpp}!greedyKnapsack@{greedyKnapsack}}
+\index{greedyKnapsack@{greedyKnapsack}!Solver.cpp@{Solver.cpp}}
+\doxysubsubsection{\texorpdfstring{greedyKnapsack()}{greedyKnapsack()}}
+{\footnotesize\ttfamily \label{_solver_8cpp_aa78077cc5709b61fdccc465cc5e9cdd1} 
+void greedy\+Knapsack (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{structpallet}{pallet}} $>$ \&}]{pallets}{, }\item[{int}]{max\+Weight}{}\end{DoxyParamCaption})}
+
+
+
+Function that solves the 0/1 Knapsack Problem using a Greedy approach. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pallets} & A vector of pallet\textquotesingle{}s structure that contains the pallets available for the algorithm. \\
+\hline
+{\em max\+Weight} & Integer that represents the maximum allowed weight on a certain truck. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time Complexity\+: O(n log n), where n is the number of available pallets. 
+\end{DoxyNote}
+\Hypertarget{_solver_8cpp_a3f21db84bbe4385563764f9e9856db4c}\index{Solver.cpp@{Solver.cpp}!greedyPlusLocalSearchKnapsack@{greedyPlusLocalSearchKnapsack}}
+\index{greedyPlusLocalSearchKnapsack@{greedyPlusLocalSearchKnapsack}!Solver.cpp@{Solver.cpp}}
+\doxysubsubsection{\texorpdfstring{greedyPlusLocalSearchKnapsack()}{greedyPlusLocalSearchKnapsack()}}
+{\footnotesize\ttfamily \label{_solver_8cpp_a3f21db84bbe4385563764f9e9856db4c} 
+void greedy\+Plus\+Local\+Search\+Knapsack (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{structpallet}{pallet}} $>$ \&}]{pallets}{, }\item[{int}]{max\+Weight}{}\end{DoxyParamCaption})}
+
+
+
+Function that solves the 0/1 Knapsack Problem using a Greedy aproach followed by a Local Search improvement. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pallets} & A vector of pallet\textquotesingle{}s structure that contains the pallets available for the algorithm. \\
+\hline
+{\em max\+Weight} & Integer that represents the maximum allowed weight on a certain truck. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time Complexity\+: O(n log n + k \texorpdfstring{$\ast$}{*} n\texorpdfstring{$^\wedge$}{\string^}2), where n is the number of available pallets and k the number of successful improvements. 
+\end{DoxyNote}
+\Hypertarget{_solver_8cpp_a1b618dab817a0d74deb28af701c98659}\index{Solver.cpp@{Solver.cpp}!hybridKnapsack@{hybridKnapsack}}
+\index{hybridKnapsack@{hybridKnapsack}!Solver.cpp@{Solver.cpp}}
+\doxysubsubsection{\texorpdfstring{hybridKnapsack()}{hybridKnapsack()}}
+{\footnotesize\ttfamily \label{_solver_8cpp_a1b618dab817a0d74deb28af701c98659} 
+void hybrid\+Knapsack (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{structpallet}{pallet}} $>$ \&}]{pallets}{, }\item[{int}]{max\+Weight}{}\end{DoxyParamCaption})}
+
+
+
+Function that contains a Hybrid Aprroach for the 0/1 Knapsack Problem that chooses the best strategy to solve the problem. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pallets} & A vector of pallet\textquotesingle{}s structure that contains the pallets available for the algorithm. \\
+\hline
+{\em max\+Weight} & Integer that represents the maximum allowed weight on a certain truck. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_solver_8cpp_abc3084494cdeed984983467790e19af6}\index{Solver.cpp@{Solver.cpp}!bestCombination@{bestCombination}}
+\index{bestCombination@{bestCombination}!Solver.cpp@{Solver.cpp}}
+\doxysubsubsection{\texorpdfstring{bestCombination}{bestCombination}}
+{\footnotesize\ttfamily \label{_solver_8cpp_abc3084494cdeed984983467790e19af6} 
+vector$<$int$>$ best\+Combination}
+
+
+
+A vector of integers that stores the IDs of the best combination of pallets found for each algorithm. 
+
+\Hypertarget{_solver_8cpp_aff27bcef7f0760f50c2ff45d794d9f42}\index{Solver.cpp@{Solver.cpp}!bestProfit@{bestProfit}}
+\index{bestProfit@{bestProfit}!Solver.cpp@{Solver.cpp}}
+\doxysubsubsection{\texorpdfstring{bestProfit}{bestProfit}}
+{\footnotesize\ttfamily \label{_solver_8cpp_aff27bcef7f0760f50c2ff45d794d9f42} 
+int best\+Profit = 0}
+
+
+
+Integer that stores the best total profit for each algorithm. 
+
+\Hypertarget{_solver_8cpp_acd4995da989efa903eb9dff43463a6bb}\index{Solver.cpp@{Solver.cpp}!bestWeight@{bestWeight}}
+\index{bestWeight@{bestWeight}!Solver.cpp@{Solver.cpp}}
+\doxysubsubsection{\texorpdfstring{bestWeight}{bestWeight}}
+{\footnotesize\ttfamily \label{_solver_8cpp_acd4995da989efa903eb9dff43463a6bb} 
+int best\+Weight = 0}
+
+
+
+Integer that stores the best total weight for each algorithm. 
+

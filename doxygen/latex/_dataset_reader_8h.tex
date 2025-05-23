@@ -1,0 +1,60 @@
+\doxysection{include/\+Dataset\+Reader.h File Reference}
+\hypertarget{_dataset_reader_8h}{}\label{_dataset_reader_8h}\index{include/DatasetReader.h@{include/DatasetReader.h}}
+{\ttfamily \#include "{}dataset.\+h"{}}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$filesystem$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structdataset}{dataset}} \mbox{\hyperlink{_dataset_reader_8h_a323dbf0b60f4e5fadda712268d6a88dd}{read\+Dataset}} (const std\+::string \&truck\+File, const std\+::string \&pallets\+File)
+\begin{DoxyCompactList}\small\item\em Reads the truck and pallet data from the CSV files and builds a dataset object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structdataset}{dataset}} \mbox{\hyperlink{_dataset_reader_8h_ad62301deb41639466e3300334a7b39be}{select\+Dataset}} (const std\+::string \&dataset\+Folder="{}../datasets/"{})
+\begin{DoxyCompactList}\small\item\em Function that lists the available datasets in a directory, where the user can select which one he wants to analyze. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_dataset_reader_8h_a323dbf0b60f4e5fadda712268d6a88dd}\index{DatasetReader.h@{DatasetReader.h}!readDataset@{readDataset}}
+\index{readDataset@{readDataset}!DatasetReader.h@{DatasetReader.h}}
+\doxysubsubsection{\texorpdfstring{readDataset()}{readDataset()}}
+{\footnotesize\ttfamily \label{_dataset_reader_8h_a323dbf0b60f4e5fadda712268d6a88dd} 
+\mbox{\hyperlink{structdataset}{dataset}} read\+Dataset (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{truck\+File}{, }\item[{const std\+::string \&}]{pallets\+File}{}\end{DoxyParamCaption})}
+
+
+
+Reads the truck and pallet data from the CSV files and builds a dataset object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em truck\+File} & A string that contains the name of the CSV file containing the data from a truck. \\
+\hline
+{\em pallets\+File} & A string that contains the name of the CSV file containing the data from a collection of pallets. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+dataset The final dataset structure that contains the best information from both CSV files.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time Complexity\+: O(n), where n is the number of pallets in a CSV file. 
+\end{DoxyNote}
+\Hypertarget{_dataset_reader_8h_ad62301deb41639466e3300334a7b39be}\index{DatasetReader.h@{DatasetReader.h}!selectDataset@{selectDataset}}
+\index{selectDataset@{selectDataset}!DatasetReader.h@{DatasetReader.h}}
+\doxysubsubsection{\texorpdfstring{selectDataset()}{selectDataset()}}
+{\footnotesize\ttfamily \label{_dataset_reader_8h_ad62301deb41639466e3300334a7b39be} 
+\mbox{\hyperlink{structdataset}{dataset}} select\+Dataset (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{dataset\+Folder}{}\end{DoxyParamCaption})}
+
+
+
+Function that lists the available datasets in a directory, where the user can select which one he wants to analyze. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dataset\+Folder} & String that contains the path to the directory that contains the datasets. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+dataset A dataset object that correspond to the files that were selected by the user.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time Complexity\+: O(m+n), where m is the number of files in the folder and n is the number of pallets that were selected in the dataset. 
+\end{DoxyNote}

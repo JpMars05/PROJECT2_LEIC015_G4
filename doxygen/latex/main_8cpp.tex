@@ -1,0 +1,30 @@
+\doxysection{src/main.cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{src/main.cpp@{src/main.cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include "{}../include/\+Dataset\+Reader.\+h"{}}\newline
+{\ttfamily \#include "{}../include/\+Solver.\+h"{}}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Main function that operates in a loop where the user can choose when to stop and what algorithm to solve the 0/1 Knapsack Problem. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Main function that operates in a loop where the user can choose when to stop and what algorithm to solve the 0/1 Knapsack Problem. 
+
+\begin{DoxyReturn}{Returns}
+int Returns 0 if it was a successful termination. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+The time complexity depends on what was the chosen algorithm\+: -\/Backtracking\+: O(2\texorpdfstring{$^\wedge$}{\string^}n); -\/Dynamic Programming\+: O(n\texorpdfstring{$\ast$}{*}\+W); -\/Greedy\+: O(n log n); -\/Hybrid\+: O(n log n + k \texorpdfstring{$\ast$}{*} n\texorpdfstring{$^\wedge$}{\string^}2) or O(n \texorpdfstring{$\ast$}{*} W), depending if it is more useful using Dynamic Programming or Greedy and Local Search improvement. 
+\end{DoxyNote}
