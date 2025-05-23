@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <stack>
 #include "../include/pallet.h"
+#include <chrono>
 
 using namespace std;
 
@@ -38,21 +39,27 @@ void backtrack(const vector<pallet>& pallets, int index, int currentWeight, int 
 }
 
 void backtrackingKnapsack(const vector<pallet>& pallets, int maxWeight) {
+    auto start = std::chrono::high_resolution_clock::now();
     bestProfit = 0;
     bestWeight = 0;
     bestCombination.clear();
 
     vector<int> currentCombination;
     backtrack(pallets, 0, 0, 0, maxWeight, currentCombination);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> duration = end - start;
 
     cout << "Best combination (Backtracking):" << endl;
     cout << "Pallets: ";
     for (int id : bestCombination) cout << id << " ";
     cout << "\nTotal weight: " << bestWeight << endl;
     cout << "Total profit: " << bestProfit << endl;
+    std::cout << "Execution time: " << duration.count() << " ms\n";
+
 }
 
 void dynamicProgrammingKnapsack(const vector<pallet>& pallets, int maxWeight) {
+    auto start = std::chrono::high_resolution_clock::now();
     int n = pallets.size(); // Número de paletes disponíveis
 
     // Cria uma tabela DP com n+1 linhas e maxWeight+1 colunas, inicializada a zero.
@@ -92,6 +99,8 @@ void dynamicProgrammingKnapsack(const vector<pallet>& pallets, int maxWeight) {
             w -= pallets[i - 1].weight;                    // Subtrai o peso da palete
         }
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> duration = end - start;
 
     // Imprime os resultados finais
     cout << "Best combination (Dynamic Programming):" << endl;
@@ -99,9 +108,11 @@ void dynamicProgrammingKnapsack(const vector<pallet>& pallets, int maxWeight) {
     for (int id : selected) cout << id << " ";
     cout << "\nTotal weight: " << maxWeight - w << endl;
     cout << "Total profit: " << dp[n][maxWeight] << endl;
+    std::cout << "Execution time: " << duration.count() << " ms\n";
 }
 
 void greedyKnapsack(const vector<pallet>& pallets, int maxWeight) {
+    auto start = std::chrono::high_resolution_clock::now();
     vector<pallet> sortedPallets = pallets;
 
     // Ordena pela divisão entre lucro e peso de cada um, por ordem decrescente
@@ -122,83 +133,86 @@ void greedyKnapsack(const vector<pallet>& pallets, int maxWeight) {
             currentCombination.push_back(p.id);
         }
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> duration = end - start;
+
     cout << "Best combination (Greedy):" << endl;
     cout << "Pallets: ";
     for(int id : currentCombination) cout << id << " ";
     cout << "\nTotal weight: " << currentWeight << endl;
     cout << "Total profit: " << totalProfit << endl;
+    std::cout << "Execution time: " << duration.count() << " ms\n";
 }
-bool cmpRatio(const pallet& a, const pallet& b) {
-    return (double)a.profit / a.weight > (double)b.profit / b.weight;
-}
-double bound(int level, int weight, int profit, const vector<pallet>& pallets, int capacity) {
-    if (weight >= capacity) return 0;
 
-    double profit_bound = profit;
-    int total_weight = weight;
+void greedyPlusLocalSearchKnapsack(const vector<pallet>& pallets, int maxWeight) {
+    auto start = std::chrono::high_resolution_clock::now();
+    vector<pallet> sortedPallets = pallets;
 
-    for (int i = level; i < pallets.size(); ++i) {
-        if (total_weight + pallets[i].weight <= capacity) {
-            total_weight += pallets[i].weight;
-            profit_bound += pallets[i].profit;
-        } else {
-            int remain = capacity - total_weight;
-            profit_bound += (double)pallets[i].profit / pallets[i].weight * remain;
-            break;
+    // Ordena pela divisão entre lucro e peso de cada um, por ordem decrescente
+    sort(sortedPallets.begin(), sortedPallets.end(), [](const pallet& a, const pallet& b) {
+          double ratioA = static_cast<double>(a.profit) / a.weight;
+          double ratioB = static_cast<double>(b.profit) / b.weight;
+          return ratioA > ratioB;
+      });
+    int currentWeight = 0;
+    int totalProfit = 0;
+    vector<int> currentCombination;
+
+    // Adiciona-se paletes ao vetor enquanto não ultrapassa a capacidade total
+    for(const auto& p : sortedPallets) {
+        if(currentWeight + p.weight <= maxWeight) {
+            currentWeight+=p.weight;
+            totalProfit += p.profit;
+            currentCombination.push_back(p.id);
         }
     }
-    return profit_bound;
-}
-void LIP_Knapsack(const vector<pallet>& items, int capacity) {
-    vector<pallet> pallets = items;
-    sort(pallets.begin(), pallets.end(), cmpRatio);
 
-    stack<BBNode> S;
-    BBNode root = {0, 0, 0, bound(0, 0, 0, pallets, capacity), {}};
-    S.push(root);
+    // ------------------ LOCAL SEARCH ------------------
+    bool improved = true;
+    while (improved) {
+        improved = false;
 
-    int maxProfit = 0;
-    vector<int> bestTaken;
+        for (int i = 0; i < currentCombination.size(); ++i) {
+            pallet in = *find_if(pallets.begin(), pallets.end(), [&](const pallet& p) {
+                return p.id == currentCombination[i];
+            });
 
-    while (!S.empty()) {
-        BBNode node = S.top(); S.pop();
+            for (const auto& out : pallets) {
+                if (find(currentCombination.begin(), currentCombination.end(), out.id) != currentCombination.end()) continue;
 
-        if (node.level >= pallets.size()) continue;
+                int newWeight = currentWeight - in.weight + out.weight;
+                int newProfit = totalProfit - in.profit + out.profit;
 
-        BBNode with = node;
-        with.level++;
-        with.weight += pallets[node.level].weight;
-        with.profit += pallets[node.level].profit;
-        with.taken.push_back(pallets[node.level].id);
-        with.bound = bound(with.level, with.weight, with.profit, pallets, capacity);
-
-        if (with.weight <= capacity && with.profit > maxProfit) {
-            maxProfit = with.profit;
-            bestTaken = with.taken;
-        }
-
-        if (with.bound > maxProfit)
-            S.push(with);
-
-        BBNode without = node;
-        without.level++;
-        without.bound = bound(without.level, without.weight, without.profit, pallets, capacity);
-        if (without.bound > maxProfit)
-            S.push(without);
-    }
-    int totalWeight = 0;
-    for (int id : bestTaken) {
-        for (const auto& p : items) {
-            if (p.id == id) {
-                totalWeight += p.weight;
-                break;
+                if (newWeight <= maxWeight && newProfit > totalProfit) {
+                    currentWeight = newWeight;
+                    totalProfit = newProfit;
+                    currentCombination[i] = out.id;
+                    improved = true;
+                    break; // Recomeça a pesquisa após troca
+                }
             }
+
+            if (improved) break;
         }
     }
 
-    cout << "Best combination (LIP - Branch and Bound):";
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> duration = end - start;
+
+    cout << "Best combination (Greedy + Local Search):" << endl;
     cout << "Pallets: ";
-    for (int id : bestTaken) cout << id << " ";
-    cout << "\nTotal weight: " << totalWeight << endl;
-    cout << "Total profit: " << maxProfit << endl;
+    for(int id : currentCombination) cout << id << " ";
+    cout << "\nTotal weight: " << currentWeight << endl;
+    cout << "Total profit: " << totalProfit << endl;
+    std::cout << "Execution time: " << duration.count() << " ms\n";
+}
+
+void hybridKnapsack(const std::vector<pallet>& pallets, int maxWeight) {
+  if(pallets.size() <= 20){
+      cout << "[Hybrid Knapsack] Using Dynamic Programming (small instance)" << endl;
+    dynamicProgrammingKnapsack(pallets, maxWeight);
+  }else {
+      cout << "[Hybrid Knapsack] Using Greedy + Local Search (large instance)" << endl;
+     greedyPlusLocalSearchKnapsack(pallets, maxWeight);
+  }
 }

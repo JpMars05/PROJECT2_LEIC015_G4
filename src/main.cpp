@@ -27,7 +27,6 @@ int main() {
             int algOption;
             std::cin >> algOption;
 
-            auto start = std::chrono::high_resolution_clock::now();
             if (algOption == 1) {
                 backtrackingKnapsack(data.pallets, data.capacity);
             }
@@ -38,15 +37,11 @@ int main() {
                 greedyKnapsack(data.pallets, data.capacity);
             }
             else if (algOption == 4) {
-                LIP_Knapsack(data.pallets, data.capacity);
+                hybridKnapsack(data.pallets, data.capacity);
             }
             else {
                 std::cout << "Invalid algorithm option.\n";
             }
-            auto end = std::chrono::high_resolution_clock::now();
-            std::chrono::duration<double, std::milli> duration = end - start;
-
-            std::cout << "Execution time: " << duration.count() << " ms\n";
         }
         else if (option == 2) {
             std::cout << "Exiting...\n";

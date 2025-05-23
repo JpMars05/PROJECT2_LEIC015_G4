@@ -30,39 +30,4 @@ struct pallet {
     int profit;
 };
 
-/**
-* @struct BBNode
-* @brief Structure that represents a node in the Branch and Bound tree for solving the 0/1 Knapsack Problem with the LIP algorithm.
-*/
-
-struct BBNode {
-    /**
-    * @brief Integer that represents the current level in the decision tree.
-    */
-
-    int level;
-
-    /**
-    * @brief Integer that represents the profit that was accumulated to this node.
-    */
-
-    int profit;
-    /**
-    * @brief Integer that represents the weight that was accumulated to this node.
-    */
-
-    int weight;
-
-    /**
-    * @brief Double value that represents the upper bound of the maximum profit possible.
-    */
-
-    double bound;
-
-    /**
-    * @brief Vector that indicates the items that were taken up to this node.
-    */
-
-    std::vector<int> taken;
-};
 #endif //PALLET_H
