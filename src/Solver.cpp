@@ -45,11 +45,11 @@ void backtrackingKnapsack(const vector<pallet>& pallets, int maxWeight) {
     vector<int> currentCombination;
     backtrack(pallets, 0, 0, 0, maxWeight, currentCombination);
 
-    cout << "Melhor combinacao (Backtracking):" << endl;
-    cout << "Paletes: ";
+    cout << "Best combination (Backtracking):" << endl;
+    cout << "Pallets: ";
     for (int id : bestCombination) cout << id << " ";
-    cout << "\nPeso total: " << bestWeight << endl;
-    cout << "Lucro total: " << bestProfit << endl;
+    cout << "\nTotal weight: " << bestWeight << endl;
+    cout << "Total profit: " << bestProfit << endl;
 }
 
 void dynamicProgrammingKnapsack(const vector<pallet>& pallets, int maxWeight) {
@@ -94,11 +94,11 @@ void dynamicProgrammingKnapsack(const vector<pallet>& pallets, int maxWeight) {
     }
 
     // Imprime os resultados finais
-    cout << "Melhor combinacao (Dynamic Programming):" << endl;
-    cout << "Paletes: ";
+    cout << "Best combination (Dynamic Programming):" << endl;
+    cout << "Pallets: ";
     for (int id : selected) cout << id << " ";
-    cout << "\nPeso total: " << maxWeight - w << endl;
-    cout << "Lucro total: " << dp[n][maxWeight] << endl;
+    cout << "\nTotal weight: " << maxWeight - w << endl;
+    cout << "Total profit: " << dp[n][maxWeight] << endl;
 }
 
 void greedyKnapsack(const vector<pallet>& pallets, int maxWeight) {
@@ -122,11 +122,11 @@ void greedyKnapsack(const vector<pallet>& pallets, int maxWeight) {
             currentCombination.push_back(p.id);
         }
     }
-    cout << "Melhor combinacao (Greedy):" << endl;
-    cout << "Paletes: ";
+    cout << "Best combination (Greedy):" << endl;
+    cout << "Pallets: ";
     for(int id : currentCombination) cout << id << " ";
-    cout << "\nPeso total: " << currentWeight << endl;
-    cout << "Lucro total: " << totalProfit << endl;
+    cout << "\nTotal weight: " << currentWeight << endl;
+    cout << "Total profit: " << totalProfit << endl;
 }
 bool cmpRatio(const pallet& a, const pallet& b) {
     return (double)a.profit / a.weight > (double)b.profit / b.weight;
@@ -196,9 +196,9 @@ void LIP_Knapsack(const vector<pallet>& items, int capacity) {
         }
     }
 
-    cout << "Melhor combinacao (LIP - Branch and Bound):";
-    cout << "Paletes: ";
+    cout << "Best combination (LIP - Branch and Bound):";
+    cout << "Pallets: ";
     for (int id : bestTaken) cout << id << " ";
-    cout << "\nPeso total: " << totalWeight << endl;
-    cout << "Lucro total: " << maxProfit << endl;
+    cout << "\nTotal weight: " << totalWeight << endl;
+    cout << "Total profit: " << maxProfit << endl;
 }
