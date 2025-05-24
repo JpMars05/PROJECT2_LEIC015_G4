@@ -31,4 +31,4 @@ struct dataset {
     std::vector<pallet> pallets;
 };
 
-#endif //DATASET_H
+#endif

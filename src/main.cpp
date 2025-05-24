@@ -23,7 +23,6 @@ int main() {
         std::cin >> option;
 
         if (option == 1) {
-            // Seleciona o dataset
             dataset data = selectDataset("../datasets/");
 
             std::cout << "\nTruck capacity: " << data.capacity << "\n";

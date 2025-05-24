@@ -221,7 +221,9 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Time Complexity: O(2^n), where n is the total number of pallets. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Time Complexity: O(2^n), where n is the total number of pallets. </dd>
+<dd>
+Space Complexity: O(n), because of the recursion depth and the forward storage on the currentCombination vector. </dd></dl>
 
 </div>
 </div>
@@ -252,7 +254,9 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Time Complexity: O(n*W), where n is the number of pallets available and W is the maximum allowed weight. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Time Complexity: O(n*W), where n is the number of pallets available and W is the maximum allowed weight. </dd>
+<dd>
+Space Complexity: O(n*W), due to the count tables. </dd></dl>
 
 </div>
 </div>
@@ -283,7 +287,9 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Time Complexity: O(n log n), where n is the number of available pallets. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Time Complexity: O(n log n), where n is the number of available pallets. </dd>
+<dd>
+Space Complexity: O(n), due to the sort function and the forward storage on the currentCombination vector. </dd></dl>
 
 </div>
 </div>
@@ -314,7 +320,9 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Time Complexity: O(n log n + k * n^2), where n is the number of available pallets and k the number of successful improvements. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Time Complexity: O(n log n + k * n^2), where n is the number of available pallets and k the number of successful improvements. </dd>
+<dd>
+Space Complexity: O(n), because of the sort function and forward storage on the currentCombination vector. </dd></dl>
 
 </div>
 </div>
@@ -341,10 +349,15 @@ Variables</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pallets</td><td>A vector of pallet's structure that contains the pallets available for the algorithm. </td></tr>
+    <tr><td class="paramname">maxWeight</td><td>Integer that represents the maximum allowed weight on a certain truck.</td></tr>
+    <tr><td class="paramname">pallets</td><td>A vector of pallet's structure that contains the pallets available for the algorithm. </td></tr>
     <tr><td class="paramname">maxWeight</td><td>Integer that represents the maximum allowed weight on a certain truck. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Time Complexity: Depends on the chosen strategy: -O(n*W) for Dynamic Programming (if pallets &lt;=20); -O(n log n + k * n^2) for Greedy + Local Search (if pallets &gt; 20). </dd>
+<dd>
+Space Complexity: Depends on the chosen strategy: -O(n*W) for Dynamic Programming (if pallets &lt;=20); -O(n) for Greedy + Local Search (if pallets &gt; 20). </dd></dl>
 
 </div>
 </div>

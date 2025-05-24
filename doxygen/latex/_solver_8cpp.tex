@@ -59,7 +59,7 @@ Function that works as a recursive helper for the backtracking solution of the 0
 \hline
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
-Time Complexity\+: O(2\texorpdfstring{$^\wedge$}{\string^}n), where n is the number of pallets. 
+Time Complexity\+: O(2\texorpdfstring{$^\wedge$}{\string^}n), where n is the number of pallets. In case of multiple combinations with the same profit and weight, the one with fewer pallets is chosen. 
 \end{DoxyNote}
 \Hypertarget{_solver_8cpp_adc832f5cea7a539d6789d92b1806dffc}\index{Solver.cpp@{Solver.cpp}!backtrackingKnapsack@{backtrackingKnapsack}}
 \index{backtrackingKnapsack@{backtrackingKnapsack}!Solver.cpp@{Solver.cpp}}
@@ -80,6 +80,8 @@ Function that solves the 0/1 Knapsack Problem using the backtracking approach.
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
 Time Complexity\+: O(2\texorpdfstring{$^\wedge$}{\string^}n), where n is the total number of pallets. 
+
+Space Complexity\+: O(n), because of the recursion depth and the forward storage on the current\+Combination vector. 
 \end{DoxyNote}
 \Hypertarget{_solver_8cpp_adbb6c9e8c8cec594fb9ef47755cc5ba4}\index{Solver.cpp@{Solver.cpp}!dynamicProgrammingKnapsack@{dynamicProgrammingKnapsack}}
 \index{dynamicProgrammingKnapsack@{dynamicProgrammingKnapsack}!Solver.cpp@{Solver.cpp}}
@@ -100,6 +102,8 @@ Function that solves the 0/1 Knapsack Problem using a Dynamic Programming approa
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
 Time Complexity\+: O(n\texorpdfstring{$\ast$}{*}\+W), where n is the number of pallets available and W is the maximum allowed weight. 
+
+Space Complexity\+: O(n\texorpdfstring{$\ast$}{*}\+W), due to the count tables. 
 \end{DoxyNote}
 \Hypertarget{_solver_8cpp_aa78077cc5709b61fdccc465cc5e9cdd1}\index{Solver.cpp@{Solver.cpp}!greedyKnapsack@{greedyKnapsack}}
 \index{greedyKnapsack@{greedyKnapsack}!Solver.cpp@{Solver.cpp}}
@@ -120,6 +124,8 @@ Function that solves the 0/1 Knapsack Problem using a Greedy approach.
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
 Time Complexity\+: O(n log n), where n is the number of available pallets. 
+
+Space Complexity\+: O(n), due to the sort function and the forward storage on the current\+Combination vector. 
 \end{DoxyNote}
 \Hypertarget{_solver_8cpp_a3f21db84bbe4385563764f9e9856db4c}\index{Solver.cpp@{Solver.cpp}!greedyPlusLocalSearchKnapsack@{greedyPlusLocalSearchKnapsack}}
 \index{greedyPlusLocalSearchKnapsack@{greedyPlusLocalSearchKnapsack}!Solver.cpp@{Solver.cpp}}
@@ -140,6 +146,8 @@ Function that solves the 0/1 Knapsack Problem using a Greedy aproach followed by
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
 Time Complexity\+: O(n log n + k \texorpdfstring{$\ast$}{*} n\texorpdfstring{$^\wedge$}{\string^}2), where n is the number of available pallets and k the number of successful improvements. 
+
+Space Complexity\+: O(n), because of the sort function and forward storage on the current\+Combination vector. 
 \end{DoxyNote}
 \Hypertarget{_solver_8cpp_a1b618dab817a0d74deb28af701c98659}\index{Solver.cpp@{Solver.cpp}!hybridKnapsack@{hybridKnapsack}}
 \index{hybridKnapsack@{hybridKnapsack}!Solver.cpp@{Solver.cpp}}
@@ -158,6 +166,11 @@ Function that contains a Hybrid Aprroach for the 0/1 Knapsack Problem that choos
 {\em max\+Weight} & Integer that represents the maximum allowed weight on a certain truck. \\
 \hline
 \end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time Complexity\+: Depends on the chosen strategy\+: -\/O(n\texorpdfstring{$\ast$}{*}\+W) for Dynamic Programming (if pallets \texorpdfstring{$<$}{<}=20); -\/O(n log n + k \texorpdfstring{$\ast$}{*} n\texorpdfstring{$^\wedge$}{\string^}2) for Greedy + Local Search (if pallets \texorpdfstring{$>$}{>} 20). 
+
+Space Complexity\+: Depends on the chosen strategy\+: -\/O(n\texorpdfstring{$\ast$}{*}\+W) for Dynamic Programming (if pallets \texorpdfstring{$<$}{<}=20); -\/O(n) for Greedy + Local Search (if pallets \texorpdfstring{$>$}{>} 20). 
+\end{DoxyNote}
 
 
 \doxysubsection{Variable Documentation}

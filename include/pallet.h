@@ -30,4 +30,4 @@ struct pallet {
     int profit;
 };
 
-#endif //PALLET_H
+#endif

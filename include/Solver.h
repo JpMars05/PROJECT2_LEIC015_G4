@@ -41,6 +41,7 @@ void backtrack(const std::vector<pallet>& pallets, int index, int currentWeight,
 * @param pallets A vector of pallet's structure containing the pallets of a certain file.
 * @param maxWeight Integer that represents the maximum weight allowed on a certain truck.
 * @note Time Complexity: O(2^n), where n is the total number of pallets.
+* @note Space Complexity: O(n), because of the recursion depth and the forward storage on the currentCombination vector.
 */
 
 void backtrackingKnapsack(const std::vector<pallet>& pallets, int maxWeight);
@@ -50,6 +51,7 @@ void backtrackingKnapsack(const std::vector<pallet>& pallets, int maxWeight);
 * @param pallets A vector of pallet's structure that conatins the pallets available for the algorithm.-
 * @param maxWeight Integer that represents the maximum weight allowed on a certain truck.
 * @note Time Complexity: O(n*W), where n is the number of pallets available and W is the maximum allowed weight.
+* @note Space Complexity: O(n*W), due to the count tables.
 */
 
 void dynamicProgrammingKnapsack(const std::vector<pallet>& pallets, int maxWeight);
@@ -59,6 +61,7 @@ void dynamicProgrammingKnapsack(const std::vector<pallet>& pallets, int maxWeigh
 * @param pallets A vector of pallet's structure that contains the pallets available for the algorithm.
 * @param maxWeight Integer that represents the maximum allowed weight on a certain truck.
 * @note Time Complexity: O(n log n), where n is the number of available pallets.
+* @note Space Complexity: O(n), due to the sort function and the forward storage on the currentCombination vector.
 */
 
 void greedyKnapsack(const std::vector<pallet>& pallets, int maxWeight);
@@ -68,6 +71,7 @@ void greedyKnapsack(const std::vector<pallet>& pallets, int maxWeight);
 * @param pallets A vector of pallet's structure that contains the pallets available for the algorithm.
 * @param maxWeight Integer that represents the maximum allowed weight on a certain truck.
 * @note Time Complexity: O(n log n + k * n^2), where n is the number of available pallets and k the number of successful improvements.
+* @note Space Complexity: O(n), because of the sort function and forward storage on the currentCombination vector.
 */
 
 void greedyPlusLocalSearchKnapsack(const std::vector<pallet>& pallets, int maxWeight);
@@ -80,4 +84,4 @@ void greedyPlusLocalSearchKnapsack(const std::vector<pallet>& pallets, int maxWe
 
 void hybridKnapsack(const std::vector<pallet>& pallets, int maxWeight);
 
-#endif //SOLVER_H
+#endif

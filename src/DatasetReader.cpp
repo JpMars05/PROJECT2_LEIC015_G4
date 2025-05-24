@@ -11,17 +11,17 @@
 * @return dataset The final dataset structure that contains the best information from both CSV files.
 *
 * @note Time Complexity: O(n), where n is the number of pallets in a CSV file.
+* @note Space Complexity: O(n), where n is the number of pallets in a CSV file.
 */
 
 dataset readDataset(const std::string& truckFile, const std::string& palletsFile) {
 
     dataset data;
 
-    // Lê capacidade e número de paletes
     std::ifstream truckStream(truckFile);
     std::string line;
 
-    std::getline(truckStream, line); // Header
+    std::getline(truckStream, line);
     std::getline(truckStream, line);
     std::stringstream ss(line);
     std::string capacityStr, palletsStr;
@@ -31,9 +31,8 @@ dataset readDataset(const std::string& truckFile, const std::string& palletsFile
     data.capacity = std::stoi(capacityStr);
     data.numPallets = std::stoi(palletsStr);
 
-    // Lê dados das paletes
     std::ifstream palletStream(palletsFile);
-    std::getline(palletStream, line); // Header
+    std::getline(palletStream, line);
 
     while (std::getline(palletStream, line)) {
         std::stringstream ps(line);
@@ -59,6 +58,7 @@ dataset readDataset(const std::string& truckFile, const std::string& palletsFile
 * @return dataset A dataset object that correspond to the files that were selected by the user.
 *
 * @note Time Complexity: O(m+n), where m is the number of files in the folder and n is the number of pallets that were selected in the dataset.
+* @note Space Complexity: O(m+n), where m is the number of files in the folder and n is the number of pallets that were selected in the dataset.
 */
 
 dataset selectDataset(const std::string& datasetFolder) {    
@@ -76,7 +76,7 @@ dataset selectDataset(const std::string& datasetFolder) {
             filename.substr(0, prefix.size()) == prefix &&
             filename.substr(filename.size() - suffix.size()) == suffix) {
 
-            std::string id = filename.substr(prefix.size(), 2); // "XX"
+            std::string id = filename.substr(prefix.size(), 2);
             datasetIds.push_back(id);
             }
     }

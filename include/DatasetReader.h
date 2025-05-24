@@ -16,6 +16,7 @@
 * @return dataset The final dataset structure that contains the best information from both CSV files.
 *
 * @note Time Complexity: O(n), where n is the number of pallets in a CSV file.
+* @note Space Complexity: O(n), where n is the number of pallets in a CSV file.
 */
 
 dataset readDataset(const std::string& truckFile, const std::string& palletsFile);
@@ -27,8 +28,9 @@ dataset readDataset(const std::string& truckFile, const std::string& palletsFile
 * @return dataset A dataset object that correspond to the files that were selected by the user.
 *
 * @note Time Complexity: O(m+n), where m is the number of files in the folder and n is the number of pallets that were selected in the dataset.
+* @note Space Complexity: O(m+n), where m is the number of files in the folder and n is the number of pallets that were selected in the dataset.
 */
 
 dataset selectDataset(const std::string& datasetFolder = "../datasets/");
 
-#endif //DATASETREADER_H
+#endif
