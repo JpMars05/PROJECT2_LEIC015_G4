@@ -35,16 +35,20 @@ vector<int> bestCombination;
 * @param currentCombination A vector of integers that represents the combination of pallets IDs that were selected.
 *
 * @note Time Complexity: O(2^n), where n is the number of pallets.
+* In case of multiple combinations with the same profit and weight, the one with fewer pallets is chosen.
 */
 
 void backtrack(const vector<pallet>& pallets, int index, int currentWeight, int currentProfit, int maxWeight, vector<int>& currentCombination) {
 
     if (index == pallets.size()) {
         // Verifica se é melhor solução válida
-        if (currentWeight <= maxWeight && currentProfit > bestProfit) {
-            bestProfit = currentProfit;
-            bestWeight = currentWeight;
-            bestCombination = currentCombination;
+        if (currentWeight <= maxWeight) {
+            if (currentProfit > bestProfit ||
+                (currentProfit == bestProfit && currentCombination.size() < bestCombination.size())) {
+                bestProfit = currentProfit;
+                bestWeight = currentWeight;
+                bestCombination = currentCombination;
+                }
         }
         return;
     }
